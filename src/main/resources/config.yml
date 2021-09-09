@@ -1,0 +1,21 @@
+host: 181.215.37.10
+port: 3306
+database: s1629_prisoncore
+username: u1629_bqHnTwUbYb
+password: IWLaibRzrw8Kr!IJEMXW7x.3
+
+reset_character:
+  commands_before_nick_name: # commands to run when he just starts the reset character process (do stuff such as reset levels / clan etc)
+    - "reset level %player%" # not a real command
+  guis:
+    clan_choose_gui:
+      rows: 3
+      items:
+        uchia:
+          name: "test"
+          type: "diamond"
+          slot: 13
+          commands_to_run:
+            - "kill %player%"
+          lore:
+            - "&clore"
