@@ -2,3 +2,5 @@ name: RpaCore
 version: '${project.version}'
 main: me.yuval270.rpacore.RpaCore
 api-version: 1.16
+commands:
+  resetcharacter:

@@ -14,11 +14,10 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class StartNewCharacterGui extends AbstractStaticGui {
-    private final ResetCharacterManager resetCharacterManager = main.getResetCharacterManager();
 
     public StartNewCharacterGui() {
         super(3, "Reset Character");
-        createItems();
+
     }
 
     @Override
@@ -27,6 +26,7 @@ public class StartNewCharacterGui extends AbstractStaticGui {
         ItemBuilder itemBuilder = new ItemBuilder(Material.NETHER_STAR).setName("&6Start New Character");
         GuiItem guiItem = new GuiItem(itemBuilder.build());
         guiItem.setAction(event -> {
+            ResetCharacterManager resetCharacterManager = main.getResetCharacterManager();
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
             player.sendMessage(Lang.STARTED_NEW_CHARACTER);
@@ -34,6 +34,7 @@ public class StartNewCharacterGui extends AbstractStaticGui {
             resetCharacterManager.addActivePlayer(player);
             player.closeInventory();
             FutureUtil.executeDelayedTask(60, () -> player.sendMessage(Lang.TO_CONTINUE));
+            player.closeInventory();
         });
         setItem(slot, guiItem);
     }

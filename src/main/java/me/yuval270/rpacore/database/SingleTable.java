@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class SingleAbstractTable<T> extends AbstractTable {
+public class SingleTable<T> extends AbstractTable {
     protected final String fieldName;
 
-    public SingleAbstractTable(String table, String primaryKey, String field) {
+    public SingleTable(String table, String primaryKey, String field) {
         super(table, primaryKey);
         this.fieldName = field;
     }
@@ -30,7 +30,7 @@ public abstract class SingleAbstractTable<T> extends AbstractTable {
         });
     }
 
-    public void updateField(String uniqueId, String value) {
+    public void updateField(String uniqueId, T value) {
         FutureUtil.executeAsync(() -> {
             try {
                 PreparedStatement statement = connection
@@ -41,6 +41,16 @@ public abstract class SingleAbstractTable<T> extends AbstractTable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    public CompletableFuture<Boolean> dataExists(String uniqueId) {
+        return FutureUtil.performFuture(() -> {
+            PreparedStatement statement = connection
+                    .prepareStatement("SELECT * FROM " + table + " WHERE " + primaryKey + "=?");
+            statement.setString(1, uniqueId);
+            ResultSet results = statement.executeQuery();
+            return results.next();
         });
     }
 

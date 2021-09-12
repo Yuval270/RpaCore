@@ -12,10 +12,33 @@ reset_character:
       rows: 3
       items:
         uchia:
-          name: "test"
+          name: "&cUchia Clan"
           type: "diamond"
           slot: 13
           commands_to_run:
-            - "kill %player%"
+            - "msg %player% you chose your clan"
           lore:
-            - "&clore"
+            - "&cBeaware of the Uchia curse"
+            - "&cWhen a man learns to love he must also bear the risk of hatred..."
+    chakra_nature:
+      rows: 3
+      items:
+        uchia:
+          name: "&bWater"
+          type: "water_bucket"
+          slot: 13
+          commands_to_run:
+            - "msg %player% you finished choosing a chakara nature"
+          lore:
+            - "&bThe water element is fierce!"
+    specialization:
+      rows: 3
+      items:
+        uchia:
+          name: "&3Genjutsu"
+          type: "emerald"
+          slot: 13
+          commands_to_run:
+            - "msg %player% you finish specializing"
+          lore:
+            - "&bThe water element is fierce!"

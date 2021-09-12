@@ -3,7 +3,7 @@ package me.yuval270.rpacore;
 import lombok.Getter;
 import me.yuval270.rpacore.commands.ResetCharacterCommand;
 import me.yuval270.rpacore.database.MySql;
-import me.yuval270.rpacore.database.tables.ResetCharacterTable;
+import me.yuval270.rpacore.database.SingleTable;
 import me.yuval270.rpacore.resetcharacter.ResetCharacterManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +18,8 @@ public final class RpaCore extends JavaPlugin {
     private MySql mySql;
     @Getter
     private ResetCharacterManager resetCharacterManager;
+    @Getter
+    private SingleTable resetCharacterTable;
     @Override
     public void onEnable() {
         setInstance();
@@ -31,9 +33,12 @@ public final class RpaCore extends JavaPlugin {
         loadDatabase();
         resetCharacterManager = new ResetCharacterManager();
     }
-    private  void loadDatabase(){
+
+    private void loadDatabase() {
         mySql = new MySql();
+        resetCharacterTable = new SingleTable("character_reset", "UUID", "STAGE");
     }
+
     private void registerCommands() {
         getCommand("resetcharacter").setExecutor(new ResetCharacterCommand());
         //getCommand("chunkhopper").setExecutor(new GiveHopperCommand());
