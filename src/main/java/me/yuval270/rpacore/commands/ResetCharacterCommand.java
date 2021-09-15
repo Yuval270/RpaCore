@@ -4,6 +4,7 @@ import me.yuval270.rpacore.RpaCore;
 import me.yuval270.rpacore.lang.Lang;
 import me.yuval270.rpacore.resetcharacter.ResetCharacterManager;
 import me.yuval270.rpacore.resetcharacter.Stage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +34,9 @@ public class ResetCharacterCommand implements CommandExecutor {
                 resetCharacterManager.handleProgress(player, Stage.CHOOSING_NICKNAME);
             }
         }
-        //todo send help page
+        commandSender.sendMessage(ChatColor.YELLOW + "Commands:");
+        commandSender.sendMessage(ChatColor.GOLD + "/resetcharacter proceed");
+        commandSender.sendMessage(ChatColor.GOLD + "/resetcharacter reset");
 
         return false;
     }

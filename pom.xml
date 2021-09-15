@@ -41,7 +41,8 @@
                             <relocations>
                                 <relocation>
                                     <pattern>dev.triumphteam.gui</pattern>
-                                    <shadedPattern>me.yuval270.rpacore.lib.gui</shadedPattern> <!-- Replace package here here -->
+                                    <shadedPattern>me.yuval270.rpacore.lib.gui
+                                    </shadedPattern> <!-- Replace package here here -->
                                 </relocation>
                             </relocations>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -74,7 +75,11 @@
     </repositories>
 
     <dependencies>
-
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.9.1</version>
+        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>

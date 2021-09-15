@@ -10,6 +10,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class PlayerDeathListener implements Listener {
     private final RpaCore main = RpaCore.getMain();
     private final ResetCharacterManager resetCharacterManager = main.getResetCharacterManager();
+
     @EventHandler(ignoreCancelled = true)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();

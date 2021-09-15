@@ -8,26 +8,25 @@ import java.util.List;
 
 public class ItemBuilder {
     private final ItemStack itemStack;
+    private final ItemMeta meta;
 
     public ItemBuilder(Material material){
         itemStack = new ItemStack(material);
+        meta = itemStack.getItemMeta();
     }
 
     public ItemBuilder setName(String name){
-        ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(Chat.translate(name));
-        itemStack.setItemMeta(meta);
         return this;
     }
 
     public ItemBuilder setLore(List<String> list){
-        ItemMeta meta = itemStack.getItemMeta();
         meta.setLore(Chat.translateList(list));
-        itemStack.setItemMeta(meta);
         return this;
     }
 
     public ItemStack build(){
+        itemStack.setItemMeta(meta);
         return itemStack.clone();
     }
 }

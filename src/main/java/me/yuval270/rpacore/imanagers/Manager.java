@@ -7,6 +7,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 @FunctionalInterface
-public interface IManager {
+public interface Manager {
     boolean shouldHandleEvent(Player player);
 }

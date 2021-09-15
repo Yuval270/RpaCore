@@ -20,9 +20,10 @@ public final class RpaCore extends JavaPlugin {
     private ResetCharacterManager resetCharacterManager;
     @Getter
     private SingleTable resetCharacterTable;
+
     @Override
     public void onEnable() {
-        setInstance();
+        main = this;
         loadConfigData();
         loadManagers();
         registerCommands();
@@ -48,6 +49,8 @@ public final class RpaCore extends JavaPlugin {
         saveDefaultConfig();
     }
 
+
+
     private void registerListeners() {
         String packageName = main.getClass().getPackage().getName();
         for (Class<?> clazz : new Reflections(packageName + ".listeners")
@@ -59,10 +62,5 @@ public final class RpaCore extends JavaPlugin {
                     | InstantiationException | IllegalAccessException e) {
             }
         }
-    }
-
-
-    private void setInstance() {
-        main = this;
     }
 }

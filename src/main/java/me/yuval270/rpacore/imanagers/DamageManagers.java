@@ -4,7 +4,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public interface IDamageManagers {
+public interface DamageManagers {
     boolean handleDeath(PlayerDeathEvent event);
     boolean handleEntityDamaged(EntityDamageByEntityEvent event);
 }

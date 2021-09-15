@@ -44,17 +44,6 @@ public class SingleTable<T> extends AbstractTable {
         });
     }
 
-    public CompletableFuture<Boolean> dataExists(String uniqueId) {
-        return FutureUtil.performFuture(() -> {
-            PreparedStatement statement = connection
-                    .prepareStatement("SELECT * FROM " + table + " WHERE " + primaryKey + "=?");
-            statement.setString(1, uniqueId);
-            ResultSet results = statement.executeQuery();
-            return results.next();
-        });
-    }
-
-
     public CompletableFuture<T> getField(String uniqueId) {
         return FutureUtil.performFuture(() -> {
             PreparedStatement statement = connection

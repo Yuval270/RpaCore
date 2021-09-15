@@ -10,25 +10,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import java.util.List;
 
 public class ResetCharacterGui extends AbstractStaticGui {
     private final Stage relatedStage;
+
     public ResetCharacterGui(int rows, String name, Stage relatedStage, String path) {
         super(rows, name, path);
         this.relatedStage = relatedStage;
-        gui.setCloseGuiAction(event -> {
-            Player player = (Player) event.getPlayer();
-            ResetCharacterManager resetCharacter = main.getResetCharacterManager();
-            Stage stage = resetCharacter.getPlayerStage(player.getUniqueId());
-            FutureUtil.executeDelayedTask(1, () -> {
-                if (stage != null && stage == relatedStage)
-                    gui.open(player);
-            });
-        });
+        this.gui.setCloseGuiAction(this::onGuiClose);
     }
-
 
 
     @Override
@@ -40,17 +34,31 @@ public class ResetCharacterGui extends AbstractStaticGui {
             List<String> commands = section.getStringList("commands_to_run");
             int slot = section.getInt("slot");
             GuiItem guiItem = createGuiItemUsingConfig(section);
-            guiItem.setAction(event -> {
-                event.setCancelled(true);
-                Player player = (Player) event.getWhoClicked();
-                commands.forEach(command ->
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName())));
-                main.getResetCharacterManager().handleProgress(player, relatedStage.get());
-            });
+            guiItem.setAction(event -> onGuiClick(event, commands));
             gui.setItem(slot, guiItem);
         }
 
     }
+
+    private void onGuiClick(InventoryClickEvent event, List<String> commands) {
+        event.setCancelled(true);
+        Player player = (Player) event.getWhoClicked();
+        commands.forEach(command ->
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName())));
+        main.getResetCharacterManager().handleProgress(player, relatedStage.get());
+    }
+
+    private void onGuiClose(InventoryCloseEvent event) {
+        Player player = (Player) event.getPlayer();
+        ResetCharacterManager resetCharacter = main.getResetCharacterManager();
+        Stage stage = resetCharacter.getPlayerStage(player.getUniqueId());
+        FutureUtil.executeDelayedTask(1, () -> {
+            if (stage != null && stage == relatedStage)
+                gui.open(player);
+        });
+    }
+
+
     /**
      * creates basic item, name, type, lore and returns it as a gui item
      *
